@@ -1,0 +1,17 @@
+
+
+CREATE TABLE Users(
+  guid VARCHAR(100) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  CONSTRAINT PK_Users PRIMARY KEY (guid,email)
+);
+
+CREATE TABLE Passwords(
+  userGuid VARCHAR(100) NOT NULL,
+  hash VARCHAR(255) NOT NULL,
+  CONSTRAINT PK_Passwords PRIMARY KEY (userGuid),
+  FOREIGN KEY (userGuid) REFERENCES Users(guid)
+)
+

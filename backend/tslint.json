@@ -1,0 +1,13 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "cyclomatic-complexity": [true, 10],
+        "prefer-object-spread": true,
+        "semicolon":true
+    },
+    "rulesDirectory": []
+}
