@@ -1,0 +1,33 @@
+@import "../../styles/pallette.scss";
+
+.register-form {
+  margin: 0 auto;
+  margin-top: 50vh;
+  padding: 40px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid $blue2;
+  background-color: $gray2;
+
+  label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    input {
+      flex: 1;
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    text-align: center;
+    background-color: $gray1;
+  }
+}

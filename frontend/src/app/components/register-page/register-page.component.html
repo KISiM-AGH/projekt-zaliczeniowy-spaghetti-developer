@@ -1,0 +1,22 @@
+<form [formGroup]="form" class="register-form">
+  <label
+    >Imie: <input type="text" formControlName="firstName" pInputText
+  /></label>
+  <label
+    >Nazwisko: <input type="text" formControlName="lastName" pInputText
+  /></label>
+  <label>Email: <input type="text" formControlName="email" pInputText /></label>
+  <label
+    >Hasło: <input type="password" formControlName="password" pInputText
+  /></label>
+  <label
+    >Hasło: <input type="password" formControlName="passwordRepeat" pInputText
+  /></label>
+  <button
+    pButton
+    class="p-button-outlined"
+    label="Zarejestruj"
+    [disabled]="!form.valid"
+    (click)="register()"
+  ></button>
+</form>

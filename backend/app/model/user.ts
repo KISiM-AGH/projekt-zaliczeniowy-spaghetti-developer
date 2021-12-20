@@ -71,7 +71,6 @@ export class User {
             throw 'User not updated';
           }
           resolve(editedUser);
-          resolve(res);
         }
       );
     });

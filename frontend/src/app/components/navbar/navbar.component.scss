@@ -1,0 +1,38 @@
+@import "../../styles/pallette.scss";
+
+.navbar {
+  list-style: none;
+  background-color: $blue1;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  li {
+    // background-color: green;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    line-height: 80px;
+    transition: 0.15s;
+    color: $gray1;
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+    mat-icon {
+      transform: scale(2);
+    }
+
+    &:hover {
+      background-color: $blue2;
+      border-radius: 0 0 50% 50%;
+    }
+
+    &.active {
+      background-color: $blue3;
+      border-radius: 0 0 50% 50%;
+    }
+  }
+}

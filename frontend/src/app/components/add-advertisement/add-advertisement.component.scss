@@ -1,0 +1,13 @@
+@import "../../styles/pallette.scss";
+
+.add-advertisement-form {
+  padding: 40px;
+  button {
+    width: 100px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: $blue1;
+    border: 1px solid $blue2;
+    color: white;
+  }
+}

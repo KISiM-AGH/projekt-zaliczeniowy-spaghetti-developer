@@ -1,0 +1,43 @@
+<form class="add-advertisement-form" [formGroup]="form">
+  <input-wrapper label="Tytuł">
+    <input type="text" formControlName="title" pInputText />
+  </input-wrapper>
+  <input-wrapper label="Opis">
+    <textarea
+      formControlName="description"
+      [autoResize]="true"
+      pInputTextarea
+    ></textarea>
+  </input-wrapper>
+  <input-wrapper label="Cena">
+    <p-inputNumber
+      type="number"
+      formControlName="price"
+      mode="currency"
+      currency="PLN"
+      [min]="0"
+    ></p-inputNumber>
+  </input-wrapper>
+  <input-wrapper label="Kontakt">
+    <input
+      type="text"
+      formControlName="contact"
+      placeholder="Numer telefonu lub adres e-mail"
+      pInputText
+    />
+  </input-wrapper>
+  <input-wrapper label="Przybliżony adres"
+    ><input
+      type="text"
+      formControlName="address"
+      placeholder="Kod pocztowy, nazwa miasta, ulica"
+      pInputText
+  /></input-wrapper>
+  <button
+    pButton
+    class="p-button-outlined"
+    label="Dodaj"
+    [disabled]="!form.valid"
+    (click)="submit()"
+  ></button>
+</form>

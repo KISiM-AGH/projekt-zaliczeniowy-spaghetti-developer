@@ -1,0 +1,21 @@
+<form [formGroup]="form" class="login-form">
+  <label
+    >Email: <input type="text" formControlName="email" name="email" pInputText
+  /></label>
+  <label
+    >Hasło:
+    <input
+      type="password"
+      formControlName="password"
+      name="password"
+      pInputText
+  /></label>
+  <button
+    pButton
+    class="p-button-outlined"
+    label="Zaloguj"
+    [disabled]="!form.valid"
+    (click)="login()"
+  ></button>
+  <a routerLink="/register" class="no-account">Nie posiadasz konta?</a>
+</form>

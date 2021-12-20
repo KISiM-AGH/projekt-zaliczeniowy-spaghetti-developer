@@ -1,0 +1,12 @@
+<div class="advertisement" *ngIf="advertisement">
+  <p class="advertisement__head">{{ advertisement.title }}</p>
+  <p class="advertisement__description">{{ advertisement.description }}</p>
+  <div class="advertisement-additional-info">
+    <span class="advertisement-additional-info__contact">{{
+      advertisement.contact
+    }}</span>
+    <span class="advertisement-additional-info__address">{{
+      advertisement.address
+    }}</span>
+  </div>
+</div>
