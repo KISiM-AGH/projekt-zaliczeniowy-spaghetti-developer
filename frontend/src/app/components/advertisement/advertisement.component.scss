@@ -1,5 +1,22 @@
 .advertisement {
   padding: 40px;
   display: flex;
+  flex-direction: column;
   gap: 20px;
+
+  &__head {
+    font-size: 1.2em;
+    font-weight: 900;
+  }
+}
+.advertisement-additional-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  span {
+    font-weight: 900;
+  }
+  p {
+    flex: 1;
+  }
 }

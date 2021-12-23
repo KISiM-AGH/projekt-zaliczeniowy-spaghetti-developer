@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AdvertisementApiService } from 'src/app/api-services';
-import { AdvertisementData } from 'src/app/dtos';
+import { AdvertisementApiService } from '../../api-services';
+import { AdvertisementData } from '../../dtos';
 
 @Component({
   selector: 'component',
@@ -10,6 +10,7 @@ import { AdvertisementData } from 'src/app/dtos';
 })
 export class AdvertisementComponent implements OnInit {
   public advertisement?: AdvertisementData;
+  public images: String[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,6 +21,7 @@ export class AdvertisementComponent implements OnInit {
     const guid = this.activatedRoute.snapshot.paramMap.get('id');
     if (guid) {
       this.advertisement = await this.apiService.getAdvertisement(guid);
+      this.images = this.advertisement.images;
     }
   }
 }

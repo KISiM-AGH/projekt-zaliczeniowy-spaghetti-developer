@@ -5,7 +5,7 @@ import { verifyToken as auth } from '../utils/auth';
 const imageRouter = express.Router();
 
 imageRouter.post('/', auth, ImageController.addImage);
-imageRouter.get('/:id', auth, ImageController.getImage);
-imageRouter.delete('/:id', auth, ImageController.deleteImage);
+imageRouter.get('/:id', ImageController.getImage);
+// imageRouter.delete('/:id', auth, ImageController.deleteImage);
 
 export { imageRouter };

@@ -33,6 +33,40 @@
       placeholder="Kod pocztowy, nazwa miasta, ulica"
       pInputText
   /></input-wrapper>
+  <input-wrapper label="Zdjęcia">
+    <input
+      #fileUpload
+      type="file"
+      requiredFileType="image/png"
+      multiple="true"
+      class="file-input"
+      (change)="onFileSelected($event)"
+    />
+    <div class="add-advertisement-form__photos-container">
+      <div
+        class="add-advertisement-form__photos"
+        cdkDropList
+        [cdkDropListData]="files"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <span *ngIf="!files.length">{{ "No file uploaded yet." }}</span>
+        <div *ngFor="let file of files" class="add-advertisement-photo">
+          <span
+            cdkDrag
+            cdkDragLockAxis="y"
+            cdkDragBoundary=".add-advertisement-form__photos"
+            >{{ file.file.name }}</span
+          >
+        </div>
+      </div>
+      <button
+        pButton
+        class="upload-button"
+        label="Dodaj zdjęcie"
+        (click)="fileUpload.click()"
+      ></button>
+    </div>
+  </input-wrapper>
   <button
     pButton
     class="p-button-outlined"

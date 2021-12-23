@@ -45,17 +45,9 @@ CREATE TABLE Advertisements(
 
 CREATE TABLE Images(
   guid VARCHAR(100) NOT NULL,
-  image BLOB NOT NULL,
-  CONSTRAINT PK_Image PRIMARY KEY (guid)
-);
-
-
-CREATE TABLE AdvertisementImages(
-  advertisementId VARCHAR(100) NOT NULL,
-  imageId  VARCHAR(100) NOT NULL,
-  isMain BOOLEAN NOT NULL,
-  sequenceNumber INT NOT NULL,
-  CONSTRAINT PK_AdvertisementImage PRIMARY KEY (imageId),
-  FOREIGN KEY (advertisementId) REFERENCES Advertisements(guid),
-  FOREIGN KEY (imageId) REFERENCES Images(guid)
+  advertisementGuid VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  orderNumber INT NOT NULL,
+  CONSTRAINT PK_Image PRIMARY KEY (guid),
+  FOREIGN KEY (advertisementGuid) REFERENCES Advertisements(guid)
 );

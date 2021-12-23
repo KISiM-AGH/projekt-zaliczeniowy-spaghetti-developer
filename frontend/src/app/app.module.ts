@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {
   AddAdvertisementComponent,
   AdvertisementComponent,
+  AdvertisementListComponent,
+  AdvertisementPreviewComponent,
   InputWrapperComponent,
   LoginPageComponent,
   MainPageComponent,
@@ -19,11 +21,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdvertisementApiService, UserApiService } from './api-services';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -35,8 +41,11 @@ import { AuthInterceptor } from './services/auth.interceptor';
     RegisterPageComponent,
     AddAdvertisementComponent,
     AdvertisementComponent,
+    AdvertisementPreviewComponent,
+    AdvertisementListComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
@@ -48,6 +57,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     ButtonModule,
     InputNumberModule,
     InputTextareaModule,
+    DragDropModule,
+    IvyCarouselModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

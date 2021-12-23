@@ -4,22 +4,22 @@ import { AdvertisementController } from '../controllers/advertisement.controller
 
 const advertisementRouter = express.Router();
 
-advertisementRouter.get('/', AdvertisementController.getAll);
+// advertisementRouter.get('/', AdvertisementController.getAll);
 advertisementRouter.get('/:id', AdvertisementController.getAdvertisement);
 advertisementRouter.post(
   '/',
   auth,
   AdvertisementController.createAdvertisement
 );
-advertisementRouter.put(
-  '/:id',
-  auth,
-  AdvertisementController.editAdvertisement
-);
-advertisementRouter.delete(
-  '/:id',
-  auth,
-  AdvertisementController.deleteAdvertisement
-);
+// advertisementRouter.put(
+//   '/:id',
+//   auth,
+//   AdvertisementController.editAdvertisement
+// );
+// advertisementRouter.delete(
+//   '/:id',
+//   auth,
+//   AdvertisementController.deleteAdvertisement
+// );
 
 export { advertisementRouter };

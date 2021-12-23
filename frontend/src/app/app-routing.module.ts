@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   AddAdvertisementComponent,
   AdvertisementComponent,
+  AdvertisementListComponent,
   LoginPageComponent,
   MainPageComponent,
   RegisterPageComponent,
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: MainPageComponent,
     canActivate: [AuthGuardService],
     children: [
+      { path: '', component: AdvertisementListComponent },
       {
         path: 'advertisement',
         children: [

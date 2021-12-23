@@ -5,3 +5,5 @@ export * from './main-page/main-page.component';
 export * from './register-page/register-page.component';
 export * from './add-advertisement/add-advertisement.component';
 export * from './advertisement/advertisement.component';
+export * from './advertisement-preview/advertisement-preview.component';
+export * from './advertisements-list/advertisement-list.component';

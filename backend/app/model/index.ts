@@ -1,5 +1,5 @@
-export * from './user';
+export * from './users';
 export * from './password';
-export * from './privilige';
-export * from './advertisement';
-export * from './image';
+// export * from './privilige';
+export * from './advertisements';
+export * from './images';

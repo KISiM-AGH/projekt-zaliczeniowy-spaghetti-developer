@@ -1,21 +1,20 @@
+import Images from '../model/images';
 import { Request, Response } from 'express';
-import { Image } from '../model';
+import { UploadedFile } from 'express-fileupload';
 import { v4 as uuid } from 'uuid';
-
-interface MulterRequest extends Request {
-  files: any;
-}
+const path = require('path');
 
 export class ImageController {
   public static addImage = async (req: Request, res: Response) => {
     try {
-      const image: Blob = (req as MulterRequest).files.image as any;
-
-      if (!image) {
+      const file = req.files?.thumbnails as UploadedFile;
+      if (!file) {
         return res.status(400).send('Bad request');
       }
-      const imageObject = await Image.add(uuid(), image as Blob);
-      res.status(200).send(imageObject);
+      const guid = uuid();
+      const ext = file.name.split('.');
+      file.mv(`./uploads/${guid}.${ext[ext.length - 1]}`);
+      res.status(200).send({ guid });
     } catch (err) {
       return res.status(500).send(err);
     }
@@ -27,22 +26,32 @@ export class ImageController {
       if (!id) {
         return res.status(400).send('Bad request');
       }
-      const image = await Image.get(id);
-      res.status(200).send(image);
+      const image = await Images.findOne({ where: { guid: id } });
+      const imageData = image?.get();
+      const ext = imageData.name.split('.');
+      let imagePath = `${__dirname}\\..\\..\\uploads\\${imageData.guid}.${
+        ext[ext.length - 1]
+      }`;
+      imagePath = path.resolve(imagePath);
+      console.log({ imagePath });
+      res.status(200).type('png').sendFile(imagePath);
     } catch (err) {
-      return res.status(500).send(err);
+      console.log(err);
+
+      return res.status(500).send('Internal server error.');
     }
   };
-  public static deleteImage = async (req: Request, res: Response) => {
-    try {
-      const id = req.params.id;
-      if (!id) {
-        return res.status(400).send('Bad request');
-      }
-      await Image.delete(id);
-      res.status(200).send('OK');
-    } catch (err) {
-      return res.status(500).send(err);
-    }
-  };
+
+  //   public static deleteImage = async (req: Request, res: Response) => {
+  //     try {
+  //       const id = req.params.id;
+  //       if (!id) {
+  //         return res.status(400).send('Bad request');
+  //       }
+  //       await Image.delete(id);
+  //       res.status(200).send('OK');
+  //     } catch (err) {
+  //       return res.status(500).send(err);
+  //     }
+  //   };
 }
