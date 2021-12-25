@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import { Users } from '../model/users';
 import { v4 as uuid } from 'uuid';
 // import { Password } from '../model';
 import * as Jwt from 'jsonwebtoken';
 import { AuthorizedUserDto } from '../dto';
 import Password from '../model/password';
 import { compare, hash } from 'bcryptjs';
+import Priviliges from '../model/priviliges';
+import Users from '../model/users';
 
 export class UserController {
   // public static edit = async (req: Request, res: Response) => {
@@ -55,7 +56,6 @@ export class UserController {
         hash: hashed,
         userGuid: user.getDataValue('guid'),
       });
-
       return res.status(200).send(user);
     } catch (err) {
       console.log(err);
@@ -73,7 +73,10 @@ export class UserController {
           .send('Body does not contain the required parameters.');
       }
 
-      const user = await Users.findOne({ where: { email } });
+      const user = await Users.findOne({
+        where: { email },
+        include: Priviliges,
+      });
       if (!user) {
         return res.status(401).send('User not found.');
       }
@@ -95,6 +98,23 @@ export class UserController {
         return res.status(200).send(authorizedUser);
       }
       res.status(400).send('Invalid credentials');
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+  };
+
+  public static user = async (req: Request, res: Response) => {
+    try {
+      const userGuid = req.body.token.userGuid;
+      const user = await Users.findOne({
+        where: { guid: userGuid },
+        include: Priviliges,
+      });
+      if (!user) {
+        return res.status(401).send('User not found.');
+      }
+      return res.status(200).send(user);
     } catch (err) {
       console.log(err);
       return res.status(500).send(err);

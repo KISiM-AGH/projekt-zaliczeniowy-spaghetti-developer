@@ -1,4 +1,20 @@
 <div class="advertisement" *ngIf="advertisement">
+  <div class="advertisement__buttons" *ngIf="canEdit || canDelete">
+    <button
+      *ngIf="canEdit"
+      pButton
+      class="p-button-outlined"
+      label="Edytuj"
+      (click)="edit()"
+    ></button>
+    <button
+      *ngIf="canDelete"
+      pButton
+      class="p-button-outlined"
+      label="Usuń"
+      (click)="delete()"
+    ></button>
+  </div>
   <p class="advertisement__head">{{ advertisement.title }}</p>
   <p class="advertisement__price">{{ advertisement.price }} PLN</p>
   <p class="advertisement__description">{{ advertisement.description }}</p>

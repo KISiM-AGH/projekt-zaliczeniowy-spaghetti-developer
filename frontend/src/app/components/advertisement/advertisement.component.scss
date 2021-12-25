@@ -8,6 +8,10 @@
     font-size: 1.2em;
     font-weight: 900;
   }
+
+  &__buttons {
+    align-self: end;
+  }
 }
 .advertisement-additional-info {
   display: flex;

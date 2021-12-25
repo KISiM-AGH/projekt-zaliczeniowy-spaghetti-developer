@@ -66,17 +66,13 @@ const Images = db.define('Images', {
   },
   name: Sequelize.STRING,
   orderNumber: Sequelize.INTEGER,
-  advertisementGuid: {
-    type: Sequelize.STRING,
-    primaryKey: true,
-    references: {
-      model: Advertisements,
-      key: 'guid',
-    },
-  },
 });
 Images.belongsTo(Advertisements, {
-  foreignKey: 'advertisementGuid',
+  foreignKey: 'AdvertisementGuid',
   targetKey: 'guid',
+});
+Advertisements.hasMany(Images, {
+  as: 'images',
+  onDelete: 'cascade',
 });
 export default Images;

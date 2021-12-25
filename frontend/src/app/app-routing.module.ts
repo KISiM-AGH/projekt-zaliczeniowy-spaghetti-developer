@@ -5,6 +5,7 @@ import {
   AdvertisementComponent,
   AdvertisementListComponent,
   LoginPageComponent,
+  LogoutPageComponent,
   MainPageComponent,
   RegisterPageComponent,
 } from './components';
@@ -13,6 +14,7 @@ import { AuthGuardService } from './guards';
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
+  { path: 'logout', component: LogoutPageComponent },
   {
     path: '',
     component: MainPageComponent,

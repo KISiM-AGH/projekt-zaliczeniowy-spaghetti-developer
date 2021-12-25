@@ -8,7 +8,14 @@ export interface UserLoginData {
   password: String;
 }
 
+export interface UserDataWithPriviliges extends UserRegisterData {
+  guid: String;
+  token: string;
+  Priviliges: { code: string }[];
+}
+
 export interface UserData extends UserRegisterData {
   guid: String;
   token: string;
+  isAdmin: boolean;
 }

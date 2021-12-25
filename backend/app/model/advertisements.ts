@@ -158,8 +158,8 @@
 //   }
 // }
 
-import { Users } from '.';
 import db from '../db/db';
+import Users from './users';
 const Sequelize = require('sequelize');
 
 const Advertisements = db.define('Advertisements', {

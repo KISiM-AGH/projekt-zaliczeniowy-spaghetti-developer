@@ -94,7 +94,7 @@ export interface UserEditData extends UserFilters {}
 //   }
 // }
 
-export const Users = db.define('Users', {
+const Users = db.define('Users', {
   guid: {
     type: Sequelize.STRING,
     primaryKey: true,
@@ -103,3 +103,5 @@ export const Users = db.define('Users', {
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
 });
+
+export default Users;

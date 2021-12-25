@@ -33,12 +33,35 @@ export class AdvertisementApiService {
     );
   }
 
+  public getAdvertisements(): Promise<AdvertisementData[]> {
+    return firstValueFrom(
+      this.http
+        .get<AdvertisementData[]>(`http://localhost:4200/api/advertisements/`)
+        .pipe(
+          map((res) =>
+            res.map((ad) => ({
+              ...ad,
+              images: ad.images.map(
+                (image: any) => `http://localhost:4200/api/images/${image.guid}`
+              ),
+            }))
+          )
+        )
+    );
+  }
+
   public uploadFile(formData: FormData): Promise<{ guid: String }> {
     return firstValueFrom(
       this.http.post<{ guid: String }>(
         `http://localhost:4200/api/images`,
         formData
       )
+    );
+  }
+
+  public delete(guid: String): Promise<void> {
+    return firstValueFrom(
+      this.http.delete<void>(`http://localhost:4200/api/advertisements/${guid}`)
     );
   }
 }

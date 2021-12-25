@@ -1,1 +1,7 @@
-ITEM
+<div class="preview" [routerLink]="'/advertisement/' + item.guid">
+  <img [src]="item.images[0]" />
+  <div class="preview-data">
+    <div class="preview-data__title">{{ item.title }}</div>
+    <div class="preview-data__price">{{ item.price }} PLN</div>
+  </div>
+</div>

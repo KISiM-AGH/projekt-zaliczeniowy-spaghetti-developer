@@ -7,7 +7,6 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   const token = req.headers[process.env.TOKEN_KEY || ''] as string;
-  console.log(req.headers);
 
   if (!token) {
     return res.status(403).send('A token is required for authentication');

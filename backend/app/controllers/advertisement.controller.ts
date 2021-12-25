@@ -1,23 +1,25 @@
 import Advertisements from '../model/advertisements';
+import Images from '../model/images';
+import Users from '../model/users';
+import Priviliges from '../model/priviliges';
 import { Request, Response } from 'express';
 import { isNil } from 'lodash';
 import { v4 as uuid } from 'uuid';
-import Images from '../model/images';
 import { ImageData } from '../dto';
 
 export class AdvertisementController {
-  //   public static getAll = async (req: Request, res: Response) => {
-  //     try {
-  //       const { page, limit } = req.params;
-  //       const advertisements = await Advertisement.getAll(
-  //         parseInt(page),
-  //         parseInt(limit)
-  //       );
-  //       res.status(200).send(advertisements);
-  //     } catch (err) {
-  //       return res.status(500).send(err);
-  //     }
-  //   };
+  public static getAll = async (req: Request, res: Response) => {
+    try {
+      // const { page, limit } = req.params;
+      const advertisements = await Advertisements.findAll({
+        include: { model: Images, as: 'images' },
+      });
+      res.status(200).send(advertisements);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Internal Server Error');
+    }
+  };
 
   public static getAdvertisement = async (req: Request, res: Response) => {
     try {
@@ -59,18 +61,20 @@ export class AdvertisementController {
       await Images.create({
         ...mainImage,
         orderNumber: 0,
-        advertisementGuid: guid,
+        AdvertisementGuid: guid,
       });
       await Images.bulkCreate([
         ...images.map((image: ImageData, i: number) => ({
           ...image,
           orderNumber: i + 1,
-          advertisementGuid: guid,
+          AdvertisementGuid: guid,
         })),
       ]);
       res.status(200).send(advertisement);
     } catch (err) {
-      return res.status(500).send(err);
+      console.log(err);
+
+      return res.status(500).send('Internal server error');
     }
   };
 
@@ -112,16 +116,41 @@ export class AdvertisementController {
   //     }
   //   };
 
-  //   public static deleteAdvertisement = async (req: Request, res: Response) => {
-  //     try {
-  //       const id = req.params.id;
-  //       if (isNil(id)) {
-  //         return res.status(400).send('Bad request');
-  //       }
-  //       await Advertisement.remove(id);
-  //       return res.status(200).send('Ok');
-  //     } catch (err) {
-  //       return res.status(500).send(err);
-  //     }
-  //   };
+  public static deleteAdvertisement = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const token = req.body.token;
+      const user = (
+        await Users.findOne({
+          where: { email: token.email },
+          include: Priviliges,
+        })
+      )?.get();
+      const isAdmin = !!user.Priviliges.find(
+        (privilige: any) => privilige.code === 'admin-privilige'
+      );
+
+      if (isNil(id)) {
+        return res.status(400).send('Bad request');
+      }
+      const advertisement = (
+        await Advertisements.findOne({
+          where: { guid: id },
+          include: { model: Images, as: 'images' },
+        })
+      )?.get();
+      if (advertisement.userGuid !== token.userGuid || isAdmin) {
+        Advertisements.destroy({
+          where: { guid: id },
+          cascade: true,
+        });
+        return res.status(200).send('Ok');
+      } else {
+        return res.status(403).send('Unauthorized');
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Internal server error');
+    }
+  };
 }

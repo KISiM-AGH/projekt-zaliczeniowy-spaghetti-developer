@@ -7,3 +7,4 @@ export * from './add-advertisement/add-advertisement.component';
 export * from './advertisement/advertisement.component';
 export * from './advertisement-preview/advertisement-preview.component';
 export * from './advertisements-list/advertisement-list.component';
+export * from './logout-page/logout-page.component';

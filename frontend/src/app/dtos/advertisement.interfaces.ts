@@ -12,4 +12,5 @@ export interface AdvertisementAddData {
 export interface AdvertisementData extends AdvertisementAddData {
   guid: String;
   images: String[];
+  userGuid: String;
 }
