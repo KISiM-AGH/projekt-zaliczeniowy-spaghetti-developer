@@ -1,6 +1,12 @@
 <form [formGroup]="form" class="login-form">
   <label
-    >Email: <input type="text" formControlName="email" name="email" pInputText
+    >Email:
+    <input
+      type="text"
+      formControlName="email"
+      name="email"
+      pInputText
+      data-e2e="email"
   /></label>
   <label
     >Hasło:
@@ -9,11 +15,13 @@
       formControlName="password"
       name="password"
       pInputText
+      data-e2e="password"
   /></label>
   <button
     pButton
     class="p-button-outlined"
     label="Zaloguj"
+    data-e2e="submit"
     [disabled]="!form.valid"
     (click)="login()"
   ></button>

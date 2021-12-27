@@ -1,9 +1,10 @@
 <form class="add-advertisement-form" *ngIf="form" [formGroup]="form">
   <input-wrapper label="Tytuł">
-    <input type="text" formControlName="title" pInputText />
+    <input data-e2e="title" type="text" formControlName="title" pInputText />
   </input-wrapper>
   <input-wrapper label="Opis">
     <textarea
+      data-e2e="description"
       formControlName="description"
       [autoResize]="true"
       pInputTextarea
@@ -11,6 +12,7 @@
   </input-wrapper>
   <input-wrapper label="Cena">
     <p-inputNumber
+      data-e2e="price"
       type="number"
       formControlName="price"
       mode="currency"
@@ -20,6 +22,7 @@
   </input-wrapper>
   <input-wrapper label="Kontakt">
     <input
+      data-e2e="contact"
       type="text"
       formControlName="contact"
       placeholder="Numer telefonu lub adres e-mail"
@@ -28,6 +31,7 @@
   </input-wrapper>
   <input-wrapper label="Przybliżony adres"
     ><input
+      data-e2e="address"
       type="text"
       formControlName="address"
       placeholder="Kod pocztowy, nazwa miasta, ulica"
@@ -68,6 +72,7 @@
     </div>
   </input-wrapper>
   <button
+    data-e2e="submit"
     pButton
     class="p-button-outlined"
     [label]="guid ? 'Edytuj' : 'Dodaj'"
