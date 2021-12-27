@@ -1,16 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
-import { AdvertisementAddData, AdvertisementData } from '../dtos';
+import { AdvertisementFormData, AdvertisementData } from '../dtos';
 
 @Injectable()
 export class AdvertisementApiService {
   constructor(private http: HttpClient) {}
 
-  public add(advertisement: AdvertisementAddData): Promise<AdvertisementData> {
+  public add(advertisement: AdvertisementFormData): Promise<AdvertisementData> {
     return firstValueFrom(
       this.http.post<AdvertisementData>(
         'http://localhost:4200/api/advertisements',
+        advertisement
+      )
+    );
+  }
+
+  public edit(advertisement: AdvertisementData): Promise<AdvertisementData> {
+    return firstValueFrom(
+      this.http.put<AdvertisementData>(
+        `http://localhost:4200/api/advertisements/${advertisement.guid}`,
         advertisement
       )
     );

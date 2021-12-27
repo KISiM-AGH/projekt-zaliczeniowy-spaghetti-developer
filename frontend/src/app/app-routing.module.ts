@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  AddAdvertisementComponent,
+  AdvertisementFormComponent,
   AdvertisementComponent,
   AdvertisementListComponent,
   LoginPageComponent,
@@ -24,7 +24,8 @@ const routes: Routes = [
       {
         path: 'advertisement',
         children: [
-          { path: 'add', component: AddAdvertisementComponent },
+          { path: 'edit/:id', component: AdvertisementFormComponent },
+          { path: 'add', component: AdvertisementFormComponent },
           { path: ':id', component: AdvertisementComponent },
         ],
       },

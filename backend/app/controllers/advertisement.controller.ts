@@ -29,9 +29,11 @@ export class AdvertisementController {
       }
       const advertisement = await Advertisements.findOne({
         where: { guid: id },
+        include: Users,
       });
+
       if (isNil(advertisement)) {
-        return res.status(401).send('Advertisement not found');
+        return res.status(401).send('Advertisement not found.');
       }
       const images = await Images.findAll({
         where: { advertisementGuid: advertisement?.getDataValue('guid') },
@@ -42,8 +44,60 @@ export class AdvertisementController {
     }
   };
 
+  public static editAdvertisement = async (req: Request, res: Response) => {
+    try {
+      const token = req.body.token;
+      const id = req.params.id;
+      const advertisement = (
+        await Advertisements.findOne({
+          where: { guid: id },
+          include: Users,
+        })
+      )?.get();
+
+      if (isNil(id)) {
+        return res.status(400).send('Bad request');
+      }
+
+      if (isNil(advertisement)) {
+        return res.status(401).send('Advertisement not found.');
+      }
+      if (advertisement.userGuid !== token.userGuid) {
+        return res.status(403).send('Unauthorized.');
+      }
+
+      const { title, description, price, contact, address } = req.body;
+
+      if (!title || !description || isNil(price) || !contact || !address) {
+        return res.status(400).send('Bad request');
+      }
+
+      const data = {
+        ...advertisement,
+        title: title ?? advertisement.title,
+        description: description ?? advertisement.description,
+        price: price ?? advertisement.price,
+        contact: contact ?? advertisement.contact,
+        address: address ?? advertisement.address,
+      };
+      await Advertisements.update(data, {
+        where: { guid: advertisement.guid },
+      });
+
+      const newAdvertisement = await Advertisements.findOne({
+        where: { guid: id },
+        include: Users,
+      });
+      res.status(200).send(newAdvertisement);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Internal server error.');
+    }
+  };
+
   public static createAdvertisement = async (req: Request, res: Response) => {
     try {
+      const token = req.body.token;
       const { title, description, price, contact, address, mainImage, images } =
         req.body;
       if (!title || !description || isNil(price) || !contact || !address) {
@@ -57,64 +111,28 @@ export class AdvertisementController {
         price,
         contact,
         address,
+        userGuid: token.userGuid,
       });
-      await Images.create({
-        ...mainImage,
-        orderNumber: 0,
-        AdvertisementGuid: guid,
-      });
-      await Images.bulkCreate([
-        ...images.map((image: ImageData, i: number) => ({
-          ...image,
-          orderNumber: i + 1,
+      if (mainImage)
+        await Images.create({
+          ...mainImage,
+          orderNumber: 0,
           AdvertisementGuid: guid,
-        })),
-      ]);
+        });
+      if (images && images.length > 0)
+        await Images.bulkCreate([
+          ...images.map((image: ImageData, i: number) => ({
+            ...image,
+            orderNumber: i + 1,
+            AdvertisementGuid: guid,
+          })),
+        ]);
       res.status(200).send(advertisement);
     } catch (err) {
       console.log(err);
-
       return res.status(500).send('Internal server error');
     }
   };
-
-  //   public static addFile = async (req: Request, res: Response) => {
-  //     try {
-  //       const file = req.files?.thumbnails as UploadedFile;
-  //       if (!file) {
-  //         return res.status(400).send('Bad request');
-  //       }
-  //       const guid = uuid();
-  //       await Advertisement.uploadFile(guid, file);
-  //       res.status(200).send({ guid });
-  //     } catch (err) {
-  //       return res.status(500).send(err);
-  //     }
-  //   };
-
-  //   public static editAdvertisement = async (req: Request, res: Response) => {
-  //     try {
-  //       const id = req.params.id;
-  //       const { title, description, price, contact, address, mainImage, images } =
-  //         req.body;
-  //       if (!title || !description || !price || !contact || !address) {
-  //         return res.status(400).send('Bad request');
-  //       }
-  //       const advertisement = await Advertisement.editAdvertisement(
-  //         id,
-  //         title,
-  //         description,
-  //         price,
-  //         contact,
-  //         address,
-  //         mainImage,
-  //         images
-  //       );
-  //       res.status(200).send(advertisement);
-  //     } catch (err) {
-  //       return res.status(500).send(err);
-  //     }
-  //   };
 
   public static deleteAdvertisement = async (req: Request, res: Response) => {
     try {
@@ -136,15 +154,16 @@ export class AdvertisementController {
       const advertisement = (
         await Advertisements.findOne({
           where: { guid: id },
-          include: { model: Images, as: 'images' },
+          include: [Users, { model: Images, as: 'images' }],
         })
       )?.get();
-      if (advertisement.userGuid !== token.userGuid || isAdmin) {
+
+      if (advertisement.userGuid === token.userGuid || isAdmin) {
         Advertisements.destroy({
           where: { guid: id },
           cascade: true,
         });
-        return res.status(200).send('Ok');
+        return res.status(200).send({ status: 'Ok' });
       } else {
         return res.status(403).send('Unauthorized');
       }

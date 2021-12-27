@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
-  AddAdvertisementComponent,
+  AdvertisementFormComponent,
   AdvertisementComponent,
   AdvertisementListComponent,
   AdvertisementPreviewComponent,
@@ -39,7 +39,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     MainPageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    AddAdvertisementComponent,
+    AdvertisementFormComponent,
     AdvertisementComponent,
     AdvertisementPreviewComponent,
     AdvertisementListComponent,

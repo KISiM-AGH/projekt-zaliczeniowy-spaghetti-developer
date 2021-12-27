@@ -33,7 +33,6 @@ export class ImageController {
         ext[ext.length - 1]
       }`;
       imagePath = path.resolve(imagePath);
-      console.log({ imagePath });
       res.status(200).type('png').sendFile(imagePath);
     } catch (err) {
       console.log(err);

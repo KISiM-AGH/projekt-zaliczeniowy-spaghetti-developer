@@ -11,11 +11,11 @@ advertisementRouter.post(
   auth,
   AdvertisementController.createAdvertisement
 );
-// advertisementRouter.put(
-//   '/:id',
-//   auth,
-//   AdvertisementController.editAdvertisement
-// );
+advertisementRouter.put(
+  '/:id',
+  auth,
+  AdvertisementController.editAdvertisement
+);
 advertisementRouter.delete(
   '/:id',
   auth,

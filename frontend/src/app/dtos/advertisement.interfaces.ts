@@ -1,6 +1,6 @@
 import { ImageData } from './image.interfaces';
 
-export interface AdvertisementAddData {
+export interface AdvertisementFormData {
   title: String;
   description: String;
   price: number;
@@ -9,7 +9,7 @@ export interface AdvertisementAddData {
   images: ImageData[] | String[];
 }
 
-export interface AdvertisementData extends AdvertisementAddData {
+export interface AdvertisementData extends AdvertisementFormData {
   guid: String;
   images: String[];
   userGuid: String;

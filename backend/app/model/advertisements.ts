@@ -181,4 +181,5 @@ const Advertisements = db.define('Advertisements', {
   },
 });
 Advertisements.belongsTo(Users, { foreignKey: 'userGuid', targetKey: 'guid' });
+Users.hasMany(Advertisements);
 export default Advertisements;

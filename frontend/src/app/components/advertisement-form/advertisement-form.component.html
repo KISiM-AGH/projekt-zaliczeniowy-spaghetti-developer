@@ -1,4 +1,4 @@
-<form class="add-advertisement-form" [formGroup]="form">
+<form class="add-advertisement-form" *ngIf="form" [formGroup]="form">
   <input-wrapper label="Tytuł">
     <input type="text" formControlName="title" pInputText />
   </input-wrapper>
@@ -33,7 +33,7 @@
       placeholder="Kod pocztowy, nazwa miasta, ulica"
       pInputText
   /></input-wrapper>
-  <input-wrapper label="Zdjęcia">
+  <input-wrapper label="Zdjęcia" *ngIf="!guid">
     <input
       #fileUpload
       type="file"
@@ -70,7 +70,7 @@
   <button
     pButton
     class="p-button-outlined"
-    label="Dodaj"
+    [label]="guid ? 'Edytuj' : 'Dodaj'"
     [disabled]="!form.valid"
     (click)="submit()"
   ></button>

@@ -35,7 +35,9 @@ export class AdvertisementComponent implements OnInit {
     }
   }
 
-  public edit(): void {}
+  public edit(): void {
+    this.router.navigate([`/advertisement/edit/${this.advertisement?.guid}`]);
+  }
 
   public delete(): void {
     if (this.advertisement) {

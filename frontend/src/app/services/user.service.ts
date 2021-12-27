@@ -18,7 +18,6 @@ export class UserService {
 
   public async login(userData: UserLoginData): Promise<void> {
     this._user = await this.apiService.login(userData);
-    console.log(this._user);
     this.setSession(this._user.token);
   }
 
