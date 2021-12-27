@@ -6,6 +6,5 @@ const imageRouter = express.Router();
 
 imageRouter.post('/', auth, ImageController.addImage);
 imageRouter.get('/:id', ImageController.getImage);
-// imageRouter.delete('/:id', auth, ImageController.deleteImage);
 
 export { imageRouter };

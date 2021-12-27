@@ -10,7 +10,6 @@ import { ImageData } from '../dto';
 export class AdvertisementController {
   public static getAll = async (req: Request, res: Response) => {
     try {
-      // const { page, limit } = req.params;
       const advertisements = await Advertisements.findAll({
         include: { model: Images, as: 'images' },
       });

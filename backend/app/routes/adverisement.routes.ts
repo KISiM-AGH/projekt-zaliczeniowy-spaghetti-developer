@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { verifyToken as auth } from '../utils/auth';
 import { AdvertisementController } from '../controllers/advertisement.controller';
-import { checkAdminPrivilige as isAdmin } from '../utils/isAdmin';
 const advertisementRouter = express.Router();
 
 advertisementRouter.get('/', AdvertisementController.getAll);

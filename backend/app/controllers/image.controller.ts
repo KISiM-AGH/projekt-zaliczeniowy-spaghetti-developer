@@ -40,17 +40,4 @@ export class ImageController {
       return res.status(500).send('Internal server error.');
     }
   };
-
-  //   public static deleteImage = async (req: Request, res: Response) => {
-  //     try {
-  //       const id = req.params.id;
-  //       if (!id) {
-  //         return res.status(400).send('Bad request');
-  //       }
-  //       await Image.delete(id);
-  //       res.status(200).send('OK');
-  //     } catch (err) {
-  //       return res.status(500).send(err);
-  //     }
-  //   };
 }

@@ -9,25 +9,6 @@ import Priviliges from '../model/priviliges';
 import Users from '../model/users';
 
 export class UserController {
-  // public static edit = async (req: Request, res: Response) => {
-  //   try {
-  //     const { firstName, lastName, email } = req.body;
-  //     if (!firstName && !lastName && !email) {
-  //       return res
-  //         .status(400)
-  //         .send('Body does not contain expected parameters.');
-  //     }
-
-  //     const updatedUser = await User.findOneAndUpdate(
-  //       { guid: req.body.token.userGuid },
-  //       { firstName, lastName, email }
-  //     );
-  //     return res.status(200).send(updatedUser);
-  //   } catch (err) {
-  //     return res.status(500).send(err);
-  //   }
-  // };
-
   public static register = async (req: Request, res: Response) => {
     try {
       const { firstName, lastName, email, password } = req.body;
