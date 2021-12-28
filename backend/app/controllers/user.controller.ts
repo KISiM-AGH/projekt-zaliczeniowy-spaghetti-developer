@@ -31,7 +31,6 @@ export class UserController {
         email: email.toLowerCase(),
         guid: uuid(),
       });
-      console.log(user.getDataValue('guid'));
       const hashed = await hash(password, 10);
       await Password.create({
         hash: hashed,
